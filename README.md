@@ -125,10 +125,9 @@ MlflowPipeline/
 │   ├── story_agent_Inference.py      # Agent inference wrapper
 │   └── data/                         # Dataset directory (FashionMNIST)
 ├── artifacts/                        # Local artifact storage
-├── mlruns/                           # MLflow runs directory
 ├── requirement.txt                   # Python dependencies
 ├── start_mlflow_server.sh           # MLflow server startup script
-└── README.md                         # This file
+└── README.md                        
 ```
 
 ---
@@ -502,6 +501,14 @@ mlflow.sklearn.log_model(
     artifact_path='rf_model',
     registered_model_name='iris_rf'
 )
+```
+
+### Serving Models
+Registered model can be served using mlflow.pyfunc.load_model
+```
+import mlflow
+mlflow.set_tracking_uri(TRACKING_URI)
+model = mlflow.pyfunc.load_model('model:/<name>/<version>')
 ```
 
 ### Model Stages
