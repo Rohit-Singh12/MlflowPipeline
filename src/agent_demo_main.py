@@ -25,3 +25,12 @@ if __name__ == "__main__":
                 "numpy"
             ]
         )
+        
+        model_uri = f"runs:/{run.info.run_id}/story_agent_model"
+        
+        mlflow.register_model(
+            model_uri=model_uri,
+            name="story-agent",
+            tags={"model_type": "llm_agent", "workflow": "iterative_story_generation"},
+            await_registration_for=120
+        )

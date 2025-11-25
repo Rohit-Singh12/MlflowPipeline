@@ -171,7 +171,6 @@ def agent_workflow(topic: str) -> Dict[str, Any]:
         counter += 1
         
     # Log the final story as an artifact
-    mlflow.log_text(story, "final_story.txt")
             
     return {"message": "Story writing completed.", "story": story, "run_id": current_run.info.run_id}
 
