@@ -6,6 +6,7 @@ import mlflow
 from mlflow.models.signature import infer_signature
 from mlflow.tracking import MlflowClient
 from common import MLFLOW_URI
+import pandas as pd
 
 # set experiment name for tracking
 mlflow.set_experiment('sklearn iris classifier v2')
@@ -13,6 +14,13 @@ with mlflow.start_run() as run:
     data = load_iris()
     X_train, X_test, y_train, y_test = train_test_split(data.data, data.target)
     n_estimators = 10
+    # Logging Dataset and Model parameters
+    df = pd.DataFrame(data.data, columns=data.feature_names)
+    df['target'] = data.target
+    dataset = mlflow.data.from_pandas(df, source="sklearn_iris")
+    mlflow.log_input(dataset, context="iris_dataset")
+    
+    # Logging model parameters
     mlflow.log_param('model_type', 'Random Forest')
     mlflow.log_param('n_estimators', n_estimators)
 
