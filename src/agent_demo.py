@@ -57,7 +57,6 @@ def writer_agent_instruction():
 @mlflow.trace
 def evaluate_story_instruction() -> str:
     '''Evaluates the story using Gemini model and returns feedback.'''
-    # Removed f-string as no variables are embedded, and simplified format instruction
     evaluation_prompt = '''Evaluate the following story for creativity, coherence, and engagement. 
     Provide score out of 10 for complete story along with brief comments on strengths and areas for improvement under 50 words.
     DONOT provide any other information apart from the score and comments.
@@ -121,7 +120,7 @@ def agent_workflow(topic: str) -> Dict[str, Any]:
         res = make_gemini_chat(evaluation_prompt, chat_history)
         print("Evaluation Response:", res)
         
-        # 4. Parse the response safely (using json.loads instead of eval)
+        # 4. Parse the response
         parsed_res = None
         try:
             # Strip whitespace and attempt to load JSON
@@ -142,7 +141,6 @@ def agent_workflow(topic: str) -> Dict[str, Any]:
             
         # 5. Check evaluation and continue or stop
         if isinstance(parsed_res, dict):
-            # Convert score to an integer for comparison, handling potential string format
             comments = parsed_res.get("comments", "")
             try:
                 score_str = parsed_res.get("score", 0)
@@ -169,8 +167,6 @@ def agent_workflow(topic: str) -> Dict[str, Any]:
             break
             
         counter += 1
-        
-    # Log the final story as an artifact
             
     return {"message": "Story writing completed.", "story": story, "run_id": current_run.info.run_id}
 

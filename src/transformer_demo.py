@@ -31,7 +31,7 @@ if mlflow.active_run():
 
 with mlflow.start_run() as run:
     # Training step (mocked for demonstration)
-    # In practice, you would fine-tune the model here
+    # In practice, there would be fine-tuned model here
 
     # Predictions
     predictions = text_classifier(texts)
