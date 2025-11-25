@@ -1,0 +1,13 @@
+mlflow 
+sqlalchemy 
+pandas
+scikit-learn
+torch
+torchvision
+transformers
+langchain
+langchain-google-genai
+google-genai
+langchain-core
+langchain-google-genai
+openai
